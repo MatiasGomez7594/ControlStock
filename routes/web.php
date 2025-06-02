@@ -30,8 +30,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/productos', [ProductoController::class, 'index'])->name('productos.index');
+    Route::delete('/productos/{producto}', [ProductoController::class, 'delete'])->name('productos.delete');
+    Route::get('/productos/{producto}/editar', [ProductoController::class, 'edit'])->name('productos.edit');
+    Route::put('/productos/{producto}', [ProductoController::class, 'update'])->name('productos.update');
     Route::get('/nuevo', [ProductoController::class, 'nuevo'])->name('productos.nuevo');
     Route::post('/nuevo', [ProductoController::class, 'store'])->name('productos.store');
+
 
 
 });

@@ -39,4 +39,32 @@ class ProductoController extends Controller
 
         return redirect()->route('productos.nuevo')->with('status', 'Producto creado correctamente.');
     }
+
+  
+
+public function edit(Producto $producto)
+{
+    $categorias = Categoria::all();
+    return view('productos.edit', compact('producto', 'categorias'));
+}
+
+public function update(Request $request, Producto $producto)
+{
+    $request->validate([
+        'nombre' => 'required|string|max:255',
+        'precio' => 'required|numeric',
+        'stock' => 'required|numeric',
+        'id_categoria' => 'required|exists:categoria,id',
+    ]);
+
+    $producto->update($request->all());
+
+    return redirect()->route('productos.index')->with('status', 'Producto actualizado correctamente.');
+}
+
+public function delete(Producto $producto)
+{
+    $producto->delete();
+    return redirect()->route('productos.index')->with('status', 'Producto eliminado.');
+}
 }
